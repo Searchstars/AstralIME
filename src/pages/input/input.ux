@@ -1,0 +1,19 @@
+<template>
+  <div class="input-page">
+    
+  </div>
+</template>
+
+<script>
+export default {
+  public:{
+
+  }
+}
+</script>
+
+<style>
+.input-page{
+  position: absolute;
+}
+</style>
