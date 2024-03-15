@@ -1,54 +1,45 @@
 <template>
   <div class="input-page">
     <div class="input-area">
-        <input type="text" placeholder="输入文字...">
+        <text class="input-text"></text>
     </div>
-    <div class="prediction-area">
-        <div class="predictions">
-            <div class="prediction first_prediction">选词1</div>
-            <div class="prediction">选词2</div>
-            <div class="prediction">选词3</div>
-            <!-- 更多选词... -->
-        </div>
-        <button class="dropdown-btn">▼</button> <!-- 移动到外层容器保持固定位置 -->
-        <button class="lang-toggle">中/英</button>
-    </div>    
+
     <div class="keyboard">
         <div class="key-row">
-            <button class="key">Q</button>
-            <button class="key">W</button>
-            <button class="key">E</button>
-            <button class="key">R</button>
-            <button class="key">T</button>
-            <button class="key">Y</button>
-            <button class="key">U</button>
-            <button class="key">I</button>
-            <button class="key">O</button>
-            <button class="key">P</button>
+            <text class="key">Q</text>
+            <text class="key">W</text>
+            <text class="key">E</text>
+            <text class="key">R</text>
+            <text class="key">T</text>
+            <text class="key">Y</text>
+            <text class="key">U</text>
+            <text class="key">I</text>
+            <text class="key">O</text>
+            <text class="key">P</text>
         </div>
         <div class="key-row">
-            <button class="key">A</button>
-            <button class="key">S</button>
-            <button class="key">D</button>
-            <button class="key">F</button>
-            <button class="key">G</button>
-            <button class="key">H</button>
-            <button class="key">J</button>
-            <button class="key">K</button>
-            <button class="key">L</button>
+            <text class="key">A</text>
+            <text class="key">S</text>
+            <text class="key">D</text>
+            <text class="key">F</text>
+            <text class="key">G</text>
+            <text class="key">H</text>
+            <text class="key">J</text>
+            <text class="key">K</text>
+            <text class="key">L</text>
         </div>
         <div class="key-row">
-            <button class="key">Z</button>
-            <button class="key">X</button>
-            <button class="key">C</button>
-            <button class="key">V</button>
-            <button class="key">B</button>
-            <button class="key">N</button>
-            <button class="key">M</button>
-            <button class="key">删</button>
+            <text class="key">Z</text>
+            <text class="key">X</text>
+            <text class="key">C</text>
+            <text class="key">V</text>
+            <text class="key">B</text>
+            <text class="key">N</text>
+            <text class="key">M</text>
+            <text class="key">删</text>
         </div>
         <div class="feature_btns">
-            <button class="space-key">空格 / 语音输入</button>
+            <text class="space-key">空格 / 语音输入</text>
         </div>
     </div>
   </div>
@@ -64,75 +55,20 @@ export default {
 
 <style>
 .input-page{
-  position: absolute;
+  display: flex;
   justify-content: center;
-  align-items: center;
-}
-.input-area {
-      width: 80%;
-      padding: 10px 0;
-      margin-top: 70px;
-      height: 100%;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-}
-input[type="text"] {
-    width: 100%;
-    min-height: 150px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-.prediction-area {
-    display: flex;
-    align-items: center; /* 保证内容垂直居中 */
-    width: 100%;
-    justify-content: space-between; /* 确保元素之间的间隔 */
-}
-
-.predictions {
-    display: flex;
-    flex: 1;
-    overflow-x: auto; /* 允许水平滚动 */
-    background-color: #e0e0e0;
-    border-radius: 3px;
-    padding: 5px 10px; /* 调整内部间距 */
-    margin-right: 5px; /* 确保与下拉按钮有间隔，根据需要调整 */
-}
-
-.prediction {
-    margin: 0 5px;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.dropdown-btn {
-    margin-right: 10px; /* 设置下拉按钮和中英切换按钮之间的间隔 */
-    padding: 5px 10px;
-    background-color: #e0e0e0;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.lang-toggle {
-    padding: 5px 10px;
-    background-color: #e0e0e0;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-}
-.lang-toggle:active {
-    background-color: #d0d0d0;
+  background-color: #f0f0f0;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+  position: absolute;
 }
 .keyboard {
     display: flex;
     flex-direction: column;
+    position: absolute;
+    margin-top: 300px;
+    margin-left: 30px;
 }
 .key-row {
     display: flex;
