@@ -1,9 +1,18 @@
 <template>
   <div class="input-page">
     <div class="input-area">
-        <text class="input-text"></text>
+        <text class="input-text">Input Text</text>
     </div>
-
+    <image style="position:absolute; width: 480px; height: 265px; margin-top: 215px; opacity: 0.5" src="/common/ime_default_background_01.png"></image>
+    <div class="sec_toggle">
+      <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">123</text>
+    </div>
+    <div class="word_tips">
+      
+    </div>
+    <div class="lang_toggle">
+      <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">中/英</text>
+    </div>
     <div class="keyboard">
         <div class="key-row">
             <text class="key">Q</text>
@@ -36,7 +45,7 @@
             <text class="key">B</text>
             <text class="key">N</text>
             <text class="key">M</text>
-            <text class="key">删</text>
+            <text class="key"><</text>
         </div>
         <div class="feature_btns">
             <text class="space-key">空格 / 语音输入</text>
@@ -56,19 +65,63 @@ export default {
 <style>
 .input-page{
   display: flex;
-  justify-content: center;
   background-color: #f0f0f0;
   width: 100vw;
   padding: 20px;
   box-sizing: border-box;
   position: absolute;
 }
+.input-area{
+  position: absolute;
+  width: 90%;
+  height: 150px;
+  margin-top: 40px;
+  margin-left: 42.5px;
+  border-color: white;
+  align-items: flex-start;
+}
+.input-text{
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 22px;
+  align-items: flex-start;
+  position: absolute;
+}
+.sec_toggle{
+  position: absolute;
+  margin-top: 225px;
+  margin-left: 20px;
+  border-radius: 5px;
+  width: 40px;
+  height: 30px;
+  background-color: #a1a1a12d;
+}
+.word_tips{
+  position: absolute;
+  margin-top: 225px;
+  margin-left: 70px;
+  border-radius: 5px;
+  width: 320px;
+  height: 30px;
+  background-color: #a1a1a12d;
+}
+.lang_toggle{
+  position: absolute;
+  margin-top: 225px;
+  margin-left: 400px;
+  border-radius: 5px;
+  width: 60px;
+  height: 30px;
+  background-color: #a1a1a12d;
+}
 .keyboard {
     display: flex;
     flex-direction: column;
     position: absolute;
     margin-top: 265px;
-    margin-left: 30px;
+    margin-left: 20px;
+    width: 100%
 }
 .key-row {
     display: flex;
@@ -78,7 +131,7 @@ export default {
 .key, .space-key, .delete-key {
     padding: 10px 4px;
     margin: 0 1px;
-    background-color: #e0e0e0;
+    background-color: #a1a1a12d;
     border: none;
     border-radius: 3px;
     font-size: 14px;
@@ -86,6 +139,7 @@ export default {
     min-width: 42px;
     min-height: 50px;
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: white
 }
 .key:active, .space-key:active, .delete-key:active {
     transform: scale(0.9);
