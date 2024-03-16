@@ -96,6 +96,11 @@ export default {
       this.ShowSuggestions()
     },
     toggle_lang(){
+      if(!this.$app.$def.emu_mode){
+        vibrator.vibrate({
+          mode: "short"
+        });
+      }
       if(this.current_mode == "en"){
         this.current_mode = "zh"
       }
@@ -187,6 +192,11 @@ export default {
       }
     },
     space_key(){
+      if(!this.$app.$def.emu_mode){
+        vibrator.vibrate({
+          mode: "short"
+        });
+      }
       if(this.cache_area != ""){
         this.input_text += this.cache_area
         this.cache_area = ""
@@ -196,6 +206,11 @@ export default {
       }
     },
     remove_last_word(){
+      if(!this.$app.$def.emu_mode){
+        vibrator.vibrate({
+          mode: "short"
+        });
+      }
       if(this.cache_area != ""){
         this.cache_area = this.cache_area.substring(0,this.cache_area.length - 1)
       }
