@@ -73,7 +73,7 @@ export default {
   },
   private: {
     current_mode: "en", // 当前语言模式 zh/en
-    cache_area: "123",
+    cache_area: "",
     suggestion1_text: "",
     suggestion2_text: "",
     suggestion3_text: "",
@@ -95,14 +95,16 @@ export default {
             "people", "into", "year", "your", "good", "some", "could", "them", "see", "other",
             "than", "then", "now", "look", "only", "come", "its", "over", "think", "also",
             "back", "after", "use", "two", "how", "our", "work", "first", "well", "way",
-            "even", "new", "want", "because", "any", "these", "give", "day", "most", "us"
+            "even", "new", "want", "because", "any", "these", "give", "day", "most", "us","fuck"
           ],
           "zh": {
             "wo": ["我", "握", "窝", "蜗"],
             "ni": ["你", "泥", "尼", "伲"],
             "ta": ["他", "它", "她", "塌"],
             "de": ["的", "得", "德", "锝"],
+            "a": ["啊","阿","呵"],
             "shi": ["是", "时", "事", "实", "使", "市", "试", "室", "石", "食"],
+            "fa": ["法","发","罚","伐","阀"],
             "le": ["了", "乐", "勒"],
             "bu": ["不", "步", "布", "部", "怖"],
             "zai": ["在", "再", "载", "栽"],
@@ -111,10 +113,12 @@ export default {
             "men": ["们", "门", "懑"],
             "zhe": ["这", "着", "者", "折", "哲", "蔗"],
             "ge": ["个", "各", "革", "格", "歌", "隔"],
-            "yi": ["一", "已", "以", "义", "议", "医", "易", "衣", "依", "移", "遗"],
+            "yi": ["一","意", "已", "以", "义", "议", "医", "易", "衣", "依", "移", "遗"],
             "wei": ["为", "位", "未", "味", "卫", "围", "违", "维", "唯"],
+            "sha": ["啥","傻","鲨","杀","砂"],
             "neng": ["能"],
             "hao": ["好", "号", "浩", "耗"],
+            "li": ["里","李","利","立","力"],
             "xiang": ["想", "相", "向", "象", "响", "项", "香", "乡", "箱"],
             "kan": ["看", "刊", "堪", "勘"],
             "zuo": ["做", "作", "坐", "座", "昨", "左"],
@@ -143,21 +147,21 @@ export default {
       // 中文网络梗
       {
         "en": [],
-        "zh": [
-          "aminuosi": "阿米诺斯",
-          "shidaishaoniantuan": "时代少年团",
-          "siren": "死人",
-          "siren": "似人",
-          "siren": "私人",
-          "xiongdinihaoxiang": "兄弟你好香",
-          "xiongdixiangcaoni": "兄弟香草泥",
-          "yoxi": "哟西",
-          "liaoyoxi": "里奥哟西"
-          "haishipvpdalao": "还是PVP大佬",
-          "chufalianzhao": "触发连招",
-          "tang": "唐",
-          "haiziniwudile": "孩子你无敌了"
-        ]
+        "zh": {
+          "aminuosi": ["阿米诺斯"],
+          "shidaishaoniantuan": ["时代少年团"],
+          "siren": ["死人"],
+          "siren": ["似人"],
+          "siren": ["私人"],
+          "xiongdinihaoxiang": ["兄弟你好香"],
+          "xiongdixiangcaoni": ["兄弟香草泥"],
+          "yoxi": ["哟西"],
+          "liaoyoxi": ["里奥哟西"],
+          "haishipvpdalao": ["还是PVP大佬"],
+          "chufalianzhao": ["触发连招"],
+          "tang": ["唐"],
+          "haiziniwudile": ["孩子你无敌了"]
+        }
       }
     ],
     TypeWord(word){
