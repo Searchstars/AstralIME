@@ -1,8 +1,8 @@
 <template>
   <div class="input-page">
-    <div class="input-area">
-        <text class="input-text">Input Text</text>
-    </div>
+    <scroll class="input-area" scroll-y=true>
+        <text class="input-text">{{input_text}}</text>
+    </scroll>
     <image style="position:absolute; width: 480px; height: 265px; margin-top: 215px; opacity: 0.5" src="/common/ime_default_background_01.png"></image>
     <div class="sec_toggle">
       <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">123</text>
@@ -15,36 +15,36 @@
     </div>
     <div class="keyboard">
         <div class="key-row">
-            <text class="key">Q</text>
-            <text class="key">W</text>
-            <text class="key">E</text>
-            <text class="key">R</text>
-            <text class="key">T</text>
-            <text class="key">Y</text>
-            <text class="key">U</text>
-            <text class="key">I</text>
-            <text class="key">O</text>
-            <text class="key">P</text>
+            <text class="key" @click="TypeWord('q')">Q</text>
+            <text class="key" @click="TypeWord('w')">W</text>
+            <text class="key" @click="TypeWord('e')">E</text>
+            <text class="key" @click="TypeWord('r')">R</text>
+            <text class="key" @click="TypeWord('t')">T</text>
+            <text class="key" @click="TypeWord('y')">Y</text>
+            <text class="key" @click="TypeWord('u')">U</text>
+            <text class="key" @click="TypeWord('i')">I</text>
+            <text class="key" @click="TypeWord('o')">O</text>
+            <text class="key" @click="TypeWord('p')">P</text>
         </div>
         <div class="key-row">
-            <text class="key">A</text>
-            <text class="key">S</text>
-            <text class="key">D</text>
-            <text class="key">F</text>
-            <text class="key">G</text>
-            <text class="key">H</text>
-            <text class="key">J</text>
-            <text class="key">K</text>
-            <text class="key">L</text>
+            <text class="key" @click="TypeWord('a')">A</text>
+            <text class="key" @click="TypeWord('s')">S</text>
+            <text class="key" @click="TypeWord('d')">D</text>
+            <text class="key" @click="TypeWord('f')">F</text>
+            <text class="key" @click="TypeWord('g')">G</text>
+            <text class="key" @click="TypeWord('h')">H</text>
+            <text class="key" @click="TypeWord('j')">J</text>
+            <text class="key" @click="TypeWord('k')">K</text>
+            <text class="key" @click="TypeWord('l')">L</text>
         </div>
         <div class="key-row">
-            <text class="key">Z</text>
-            <text class="key">X</text>
-            <text class="key">C</text>
-            <text class="key">V</text>
-            <text class="key">B</text>
-            <text class="key">N</text>
-            <text class="key">M</text>
+            <text class="key" @click="TypeWord('z')">Z</text>
+            <text class="key" @click="TypeWord('x')">X</text>
+            <text class="key" @click="TypeWord('c')">C</text>
+            <text class="key" @click="TypeWord('v')">V</text>
+            <text class="key" @click="TypeWord('b')">B</text>
+            <text class="key" @click="TypeWord('n')">N</text>
+            <text class="key" @click="TypeWord('m')">M</text>
             <text class="key"><</text>
         </div>
         <div class="feature_btns">
@@ -55,9 +55,18 @@
 </template>
 
 <script>
+import vibrator from '@system.vibrator'
 export default {
   public:{
-
+    input_text: ""
+  },
+  private: {
+    TypeWord(word){
+      vibrator.vibrate({
+        mode: "short"
+      })
+      this.input_text += word
+    }
   }
 }
 </script>
@@ -66,9 +75,6 @@ export default {
 .input-page{
   display: flex;
   background-color: #f0f0f0;
-  width: 100vw;
-  padding: 20px;
-  box-sizing: border-box;
   position: absolute;
 }
 .input-area{
@@ -120,7 +126,6 @@ export default {
     flex-direction: column;
     position: absolute;
     margin-top: 265px;
-    margin-left: 20px;
     width: 100%
 }
 .key-row {
