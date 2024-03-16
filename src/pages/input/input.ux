@@ -7,9 +7,15 @@
     <div class="sec_toggle">
       <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">123</text>
     </div>
-    <div class="word_tips">
-      
-    </div>
+    <scroll class="word_tips" scroll-x="true">
+      <text class="word_tip" style="margin-left: 10px">FirstTip</text>
+      <text class="word_tip" style="margin-left: 10px">SecondTip</text>
+      <text class="word_tip" style="margin-left: 10px">ThirdTip</text>
+      <text class="word_tip" style="margin-left: 10px">FourthTip</text>
+      <text class="word_tip" style="margin-left: 10px">FivethTip</text>
+      <text class="word_tip" style="margin-left: 15px">></text>
+      <text class="word_tip" style="margin-left: 10px"></text>
+    </scroll>
     <div class="lang_toggle">
       <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">中/英</text>
     </div>
@@ -61,6 +67,7 @@ export default {
     input_text: ""
   },
   private: {
+    current_mode: "en", // 当前语言模式 cn/en
     TypeWord(word){
       vibrator.vibrate({
         mode: "short"
@@ -110,7 +117,12 @@ export default {
   border-radius: 5px;
   width: 320px;
   height: 30px;
+  flex-direction: row;
   background-color: #a1a1a12d;
+}
+.word_tip{
+  color: white;
+  font-size: 16px;
 }
 .lang_toggle{
   position: absolute;
