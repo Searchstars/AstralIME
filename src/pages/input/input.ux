@@ -205,40 +205,34 @@ export default {
       this.ShowSuggestions()
     },
     getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
-      let suggestions = [];
+        let suggestions = new Set(); // 使用 Set 避免重复
+        input = input.toLowerCase();
     
-      if (language === "en") {
-        // 处理英文输入
         for (let suggestionsJson of suggestionsJsonArray) {
-          if (suggestionsJson.en) {
-            for (let word of suggestionsJson.en) {
-              if (word.toLowerCase().startsWith(input.toLowerCase())) {
-                suggestions.push(word);
-                if (suggestions.length >= numSuggestions) return suggestions;
-              }
-            }
-          }
-        }
-      } else if (language === "zh") {
-        // 处理中文输入
-        for (let suggestionsJson of suggestionsJsonArray) {
-          if (suggestionsJson.zh) {
-            // 遍历拼音，找到所有匹配的前缀
-            for (let pinyin in suggestionsJson.zh) {
-              if (pinyin.startsWith(input)) {
-                // 将匹配的汉字添加到建议列表
-                suggestions = [...new Set([...suggestions, ...suggestionsJson.zh[pinyin]])];
-                if (suggestions.length >= numSuggestions) {
-                  return suggestions.slice(0, numSuggestions);
+            if (suggestionsJson[language]) {
+                let words = language === "en" ? suggestionsJson[language] : Object.keys(suggestionsJson[language]);
+                for (let word of words) {
+                    let wordToCheck = language === "en" ? word.toLowerCase() : word;
+                    if (wordToCheck.startsWith(input)) {
+                        if (language === "zh") {
+                            suggestionsJson[language][word].forEach(w => suggestions.add(w));
+                        } else {
+                            suggestions.add(word);
+                        }
+                        // 检查是否已达到所需建议数量
+                        if (suggestions.size >= numSuggestions) {
+                            // 返回前numSuggestions个建议
+                            return Array.from(suggestions).slice(0, numSuggestions);
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     
-      return suggestions.slice(0, numSuggestions);
+        // 如果循环结束还没找到足够的建议，返回当前所有建议
+        return Array.from(suggestions).slice(0, numSuggestions);
     }
+
   }
 }
 </script>
