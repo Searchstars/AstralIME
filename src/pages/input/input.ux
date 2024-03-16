@@ -88,7 +88,7 @@ export default {
       this.input_text += word
       console.log(this.getSuggestions(this.input_text, 3, this.default_dict, "en"))
     },
-    function getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
+    getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
       let suggestions = [];
     
       if (language === "en") {
