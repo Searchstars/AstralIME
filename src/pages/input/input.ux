@@ -62,17 +62,35 @@
 
 <script>
 import vibrator from '@system.vibrator'
+import file from '@system.file'
 export default {
   public:{
     input_text: ""
   },
   private: {
     current_mode: "en", // 当前语言模式 cn/en
+    default_dict: [
+      {
+        "en":{
+          "a": ["apple", "ant", "amber"],
+          "b": ["banana", "berry", "biscuit"]
+        }
+      },
+      {
+        "zh": {
+          "ni": ["你","尼", "拟", "妮"],
+          "shi": ["是", "时", "事", "市"]
+        }
+      }
+    ],
     TypeWord(word){
-      vibrator.vibrate({
-        mode: "short"
-      })
+      if(!this.$app.$def.emu_mode){
+        vibrator.vibrate({
+          mode: "short"
+        });
+      }
       this.input_text += word
+      console.log(this.getSuggestions(this.input_text, 3, this.default_dict, "en"))
     },
     getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
       let suggestions = [];
