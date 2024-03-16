@@ -51,7 +51,7 @@
             <text class="key" @click="TypeWord('b')">B</text>
             <text class="key" @click="TypeWord('n')">N</text>
             <text class="key" @click="TypeWord('m')">M</text>
-            <text class="key"><</text>
+            <text class="key" @click="remove_last_word()"><</text>
         </div>
         <div class="feature_btns">
             <text class="space-key">空格 / 语音输入</text>
@@ -87,6 +87,9 @@ export default {
       }
       this.input_text += word
       console.log(this.getSuggestions(this.input_text, 3, this.default_dict, "en"))
+    },
+    remove_last_word(){
+      this.input_text = this.input_text.substring(0,this.input_text.length - 1)
     },
     getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
       let suggestions = [];
