@@ -184,6 +184,7 @@ export default {
       }
       else{
         this.current_mode = "en"
+        
       }
     },  
     TypeWordBySuggID(id){
@@ -198,6 +199,7 @@ export default {
               prompt.showToast({
                 message: "该文本不可输入！"
               })
+              
             }
           }
           break
@@ -310,19 +312,7 @@ export default {
       })
       if(!this.$app.$def.emu_mode){
         record.start({
-          duration: 5000,
-          success:(uri) => {
-            prompt.showToast({
-              message: "录音完毕：" + uri,
-              duration: 6000
-            })
-          },
-          fail: (data,code) => {
-            prompt.showToast({
-              message: "录音失败！错误信息：" + data + " 代码：" + code,
-              duration: 6000
-            })
-          }
+          duration: 5000
         })
       }
     },
