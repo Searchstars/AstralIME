@@ -69,19 +69,15 @@ export default {
   },
   private: {
     current_mode: "en", // 当前语言模式 cn/en
-    default_dict: [
+    default_dict:[
       {
-        "en":{
-          "a": ["apple", "ant", "amber"],
-          "b": ["banana", "berry", "biscuit"]
-        }
-      },
-      {
+        "en": ["apple", "ant", "amber", "apricot", "apex", "banana", "autumn"],
         "zh": {
-          "ni": ["你","尼", "拟", "妮"],
-          "shi": ["是", "时", "事", "市"]
+          "ni": ["你", "尼", "拟", "妮"],
+          "na": ["那", "拿", "哪"]
         }
       }
+      // 可以按需添加更多词库对象，按优先级排序
     ],
     TypeWord(word){
       if(!this.$app.$def.emu_mode){
@@ -92,22 +88,37 @@ export default {
       this.input_text += word
       console.log(this.getSuggestions(this.input_text, 3, this.default_dict, "en"))
     },
-    getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
+    function getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
       let suggestions = [];
-      for (let i = 0; i < suggestionsJsonArray.length && suggestions.length < numSuggestions; i++) {
-        const suggestionsJson = suggestionsJsonArray[i];
-        if (suggestionsJson[language] && suggestionsJson[language][input]) {
-          // 遍历当前 JSON 对象中的建议
-          for (let suggestion of suggestionsJson[language][input]) {
-            if (suggestions.length < numSuggestions) {
-              suggestions.push(suggestion);
-            } else {
-              // 如果已达到所需的建议数量，提前终止搜索
-              break;
+    
+      if (language === "en") {
+        // 英文处理逻辑
+        for (let suggestionsJson of suggestionsJsonArray) {
+          if (suggestionsJson.en) {
+            for (let word of suggestionsJson.en) {
+              if (word.toLowerCase().includes(input.toLowerCase())) {
+                suggestions.push(word);
+                if (suggestions.length >= numSuggestions) return suggestions;
+              }
             }
           }
         }
+      } else if (language === "zh") {
+        // 中文处理逻辑
+        const matchedPrefixes = [];
+        for (let suggestionsJson of suggestionsJsonArray) {
+          if (suggestionsJson.zh) {
+            for (let pinyin in suggestionsJson.zh) {
+              if (pinyin.startsWith(input)) {
+                matchedPrefixes.push(...suggestionsJson.zh[pinyin]);
+              }
+            }
+          }
+        }
+        // 对匹配到的汉字进行去重和排序
+        suggestions = [...new Set(matchedPrefixes)].slice(0, numSuggestions);
       }
+    
       return suggestions;
     }
   }
