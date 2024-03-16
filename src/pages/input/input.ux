@@ -73,6 +73,24 @@ export default {
         mode: "short"
       })
       this.input_text += word
+    },
+    getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
+      let suggestions = [];
+      for (let i = 0; i < suggestionsJsonArray.length && suggestions.length < numSuggestions; i++) {
+        const suggestionsJson = suggestionsJsonArray[i];
+        if (suggestionsJson[language] && suggestionsJson[language][input]) {
+          // 遍历当前 JSON 对象中的建议
+          for (let suggestion of suggestionsJson[language][input]) {
+            if (suggestions.length < numSuggestions) {
+              suggestions.push(suggestion);
+            } else {
+              // 如果已达到所需的建议数量，提前终止搜索
+              break;
+            }
+          }
+        }
+      }
+      return suggestions;
     }
   }
 }
