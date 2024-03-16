@@ -7,16 +7,19 @@
     <div class="sec_toggle">
       <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">123</text>
     </div>
+    <div class="cache_area_text">
+      <text style="min-width: 40px; height: 100%; text-align: center; color: white; font-size: 14px">{{cache_area}}</text>
+    </div>
     <scroll class="word_tips" scroll-x="true">
-      <text class="word_tip" style="margin-left: 10px">FirstTip</text>
-      <text class="word_tip" style="margin-left: 10px">SecondTip</text>
-      <text class="word_tip" style="margin-left: 10px">ThirdTip</text>
-      <text class="word_tip" style="margin-left: 10px">FourthTip</text>
-      <text class="word_tip" style="margin-left: 10px">FivethTip</text>
-      <text class="word_tip" style="margin-left: 15px">></text>
+      <text class="word_tip" style="margin-left: 10px" @click="TypeWordBySuggID(1)">{{suggestion1_text}}</text>
+      <text class="word_tip" style="margin-left: 10px" @click="TypeWordBySuggID(2)">{{suggestion2_text}}</text>
+      <text class="word_tip" style="margin-left: 10px" @click="TypeWordBySuggID(3)">{{suggestion3_text}}</text>
+      <text class="word_tip" style="margin-left: 10px" @click="TypeWordBySuggID(4)">{{suggestion4_text}}</text>
+      <text class="word_tip" style="margin-left: 10px" @click="TypeWordBySuggID(5)">{{suggestion5_text}}</text>
+      <text class="word_tip" style="margin-left: 15px" show="{{show_more_suggestion_btn}}">></text>
       <text class="word_tip" style="margin-left: 10px"></text>
     </scroll>
-    <div class="lang_toggle">
+    <div class="lang_toggle" @click="toggle_lang()">
       <text style="width: 100%; height: 100%; text-align: center; color: white; font-size: 18px">中/英</text>
     </div>
     <div class="keyboard">
@@ -54,7 +57,7 @@
             <text class="key" @click="remove_last_word()"><</text>
         </div>
         <div class="feature_btns">
-            <text class="space-key">空格 / 语音输入</text>
+            <text class="space-key" @click="space_key()">空格</text>
         </div>
     </div>
   </div>
@@ -68,13 +71,21 @@ export default {
     input_text: ""
   },
   private: {
-    current_mode: "en", // 当前语言模式 cn/en
+    current_mode: "en", // 当前语言模式 zh/en
+    cache_area: "123",
+    suggestion1_text: "",
+    suggestion2_text: "",
+    suggestion3_text: "",
+    suggestion4_text: "",
+    suggestion5_text: "",
+    show_more_suggestion_btn: false,
     default_dict:[
       {
         "en": ["apple", "ant", "amber", "apricot", "apex", "banana", "autumn"],
         "zh": {
           "ni": ["你", "尼", "拟", "妮"],
-          "na": ["那", "拿", "哪"]
+          "na": ["那", "拿", "哪"],
+          "zhe": ["这","着","者"]
         }
       }
       // 可以按需添加更多词库对象，按优先级排序
@@ -85,11 +96,117 @@ export default {
           mode: "short"
         });
       }
-      this.input_text += word
-      console.log(this.getSuggestions(this.input_text, 3, this.default_dict, "en"))
+      this.cache_area += word
+      this.ShowSuggestions()
+    },
+    toggle_lang(){
+      if(this.current_mode == "en"){
+        this.current_mode = "zh"
+      }
+      else{
+        this.current_mode = "zh"
+      }
+    },  
+    TypeWordBySuggID(id){
+      switch(id){
+        case 1:
+          if(this.suggestion1_text != ""){
+            this.input_text += this.suggestion1_text
+            this.ClearSuggestions()
+            this.cache_area = ""
+          }
+          break
+        case 2:
+          if(this.suggestion2_text != ""){
+            this.input_text += this.suggestion2_text
+            this.ClearSuggestions()
+            this.cache_area = ""
+          }
+          break
+        case 3:
+          if(this.suggestion3_text != ""){
+            this.input_text += this.suggestion3_text
+            this.ClearSuggestions()
+            this.cache_area = ""
+          }
+          break
+        case 4:
+          if(this.suggestion4_text != ""){
+            this.input_text += this.suggestion4_text
+            this.ClearSuggestions()
+            this.cache_area = ""
+          }
+          break
+        case 5:
+          if(this.suggestion5_text != ""){
+            this.input_text += this.suggestion5_text
+            this.ClearSuggestions()
+            this.cache_area = ""
+          }
+          break
+        default:
+          break
+      }
+      this.ShowSuggestions()
+    },
+    ClearSuggestions(){
+      this.suggestion1_text = ""
+      this.suggestion2_text = ""
+      this.suggestion3_text = ""
+      this.suggestion4_text = ""
+      this.suggestion5_text = ""
+      console.log("cleared")
+    },
+    ShowSuggestions(){
+      var suggestions = this.getSuggestions(this.cache_area, 6, this.default_dict, this.current_mode)
+      console.log(suggestions)
+      this.ClearSuggestions()
+      switch (suggestions.length){
+        case 0:
+          this.show_more_suggestion_btn = false;
+        case 1:
+          [this.suggestion1_text] = suggestions;
+          this.show_more_suggestion_btn = false;
+          break
+        case 2:
+          [this.suggestion1_text, this.suggestion2_text] = suggestions;
+          this.show_more_suggestion_btn = false;
+          break
+        case 3:
+          [this.suggestion1_text, this.suggestion2_text, this.suggestion3_text] = suggestions;
+          this.show_more_suggestion_btn = false;
+          break
+        case 4:
+          [this.suggestion1_text, this.suggestion2_text, this.suggestion3_text, this.suggestion4_text] = suggestions;
+          this.show_more_suggestion_btn = false;
+          break
+        case 5:
+          [this.suggestion1_text, this.suggestion2_text, this.suggestion3_text, this.suggestion4_text, this.suggestion5_text] = suggestions;
+          this.show_more_suggestion_btn = false;
+          break
+        default:
+          [this.suggestion1_text, this.suggestion2_text, this.suggestion3_text, this.suggestion4_text, this.suggestion5_text] = suggestions;
+          if (suggestions.length > 5) this.show_more_suggestion_btn = true;
+          break
+      }
+    },
+    space_key(){
+      if(this.cache_area != ""){
+        this.input_text += this.cache_area
+        this.cache_area = ""
+      }
+      else{
+        this.input_text += ""
+      }
     },
     remove_last_word(){
-      this.input_text = this.input_text.substring(0,this.input_text.length - 1)
+      if(this.cache_area != ""){
+        this.cache_area = this.cache_area.substring(0,this.cache_area.length - 1)
+      }
+      else{
+        this.input_text = this.input_text.substring(0,this.input_text.length - 1)
+      }
+      this.ShowSuggestions()
     },
     getSuggestions(input, numSuggestions, suggestionsJsonArray, language) {
       let suggestions = [];
@@ -160,6 +277,15 @@ export default {
   border-radius: 5px;
   width: 40px;
   height: 30px;
+  background-color: #a1a1a12d;
+}
+.cache_area_text{
+  position: absolute;
+  margin-top: 200px;
+  margin-left: 70px;
+  border-radius: 5px;
+  min-width: 40px;
+  height: 20px;
   background-color: #a1a1a12d;
 }
 .word_tips{
