@@ -1,6 +1,6 @@
 <script>
 export default {
-  emu_mode: true,
+  emu_mode: false,
   onCreate() {
     console.log('app created')
   },
