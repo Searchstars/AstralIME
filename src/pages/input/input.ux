@@ -317,7 +317,6 @@ export default {
     padding: 10px 4px;
     margin: 0 1px;
     background-color: #a1a1a12d;
-    border: none;
     border-radius: 3px;
     font-size: 14px;
     text-align: center;
