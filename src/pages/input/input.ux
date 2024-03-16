@@ -57,7 +57,7 @@
             <text class="key" @click="remove_last_word()"><</text>
         </div>
         <div class="feature_btns">
-            <text class="space-key" @click="space_key()">空格</text>
+            <text class="space-key" @click="space_key()" @longpress="voice_enter()">空格</text>
         </div>
     </div>
   </div>
@@ -67,6 +67,7 @@
 import vibrator from '@system.vibrator'
 import file from '@system.file'
 import prompt from '@system.prompt'
+import record from '@system.record'
 export default {
   public:{
     input_text: ""
@@ -164,21 +165,20 @@ export default {
         }
       }
     ],
-    TypeWord(word){
+    ShortVibrate(){
       if(!this.$app.$def.emu_mode){
         vibrator.vibrate({
           mode: "short"
         });
       }
+    },
+    TypeWord(word){
+      this.ShortVibrate()
       this.cache_area += word
       this.ShowSuggestions()
     },
     toggle_lang(){
-      if(!this.$app.$def.emu_mode){
-        vibrator.vibrate({
-          mode: "short"
-        });
-      }
+      this.ShortVibrate()
       if(this.current_mode == "en"){
         this.current_mode = "zh"
       }
@@ -295,25 +295,39 @@ export default {
       }
     },
     space_key(){
-      if(!this.$app.$def.emu_mode){
-        vibrator.vibrate({
-          mode: "short"
-        });
-      }
+      this.ShortVibrate()
       if(this.cache_area != ""){
         this.input_text += this.cache_area
         this.cache_area = ""
       }
       else{
-        this.input_text += ""
+        this.input_text += " "
+      }
+    },
+    voice_enter(){
+      prompt.showToast({
+        message: "longpress"
+      })
+      if(!this.$app.$def.emu_mode){
+        record.start({
+          duration: 5000,
+          success:(uri) => {
+            prompt.showToast({
+              message: "录音完毕：" + uri,
+              duration: 6000
+            })
+          },
+          fail: (data,code) => {
+            prompt.showToast({
+              message: "录音失败！错误信息：" + data + " 代码：" + code,
+              duration: 6000
+            })
+          }
+        })
       }
     },
     remove_last_word(){
-      if(!this.$app.$def.emu_mode){
-        vibrator.vibrate({
-          mode: "short"
-        });
-      }
+      this.ShortVibrate()
       if(this.cache_area != ""){
         this.cache_area = this.cache_area.substring(0,this.cache_area.length - 1)
       }
